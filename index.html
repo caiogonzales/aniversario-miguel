@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LEVEL 10 COMPLETE — Confirmação de presença</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="crt-overlay" aria-hidden="true"></div>
+<div class="scanline" aria-hidden="true"></div>
+
+<div class="stage">
+
+  <!-- HUD superior -->
+  <header class="hud">
+    <div class="hud-item">
+      <span class="hud-label">PLAYER</span>
+      <span class="hud-value" id="hud-player">???</span>
+    </div>
+    <div class="hud-item hud-item--center">
+      <span class="hud-label">MISSÃO</span>
+      <span class="hud-value">RSVP.EXE</span>
+    </div>
+    <div class="hud-item">
+      <span class="hud-label">STATUS</span>
+      <span class="hud-value" id="hud-status">AGUARDANDO</span>
+    </div>
+  </header>
+
+  <!-- Título principal -->
+  <section class="title-screen">
+    <p class="eyebrow">// ACHIEVEMENT UNLOCKED</p>
+    <h1 class="title-main">
+      <span class="title-level">LEVEL <span id="nivel-num">10</span></span>
+      <span class="title-complete">COMPLETE</span>
+    </h1>
+    <p class="subtitle" id="subtitulo-evento">A festa de aniversário mais épica do ano está prestes a começar.</p>
+    <p class="hero-name">
+      <span class="hero-name-label">Boss final da fase:</span>
+      <span class="hero-name-value" id="nome-aniversariante">—</span>
+    </p>
+  </section>
+
+  <!-- Countdown -->
+  <section class="countdown-panel" aria-label="Contagem regressiva para o evento">
+    <p class="panel-title">⏱ PRÓXIMO SPAWN EM</p>
+    <div class="countdown" id="countdown">
+      <div class="countdown-block">
+        <span class="countdown-number" id="cd-days">00</span>
+        <span class="countdown-label">DIAS</span>
+      </div>
+      <div class="countdown-block">
+        <span class="countdown-number" id="cd-hours">00</span>
+        <span class="countdown-label">HORAS</span>
+      </div>
+      <div class="countdown-block">
+        <span class="countdown-number" id="cd-minutes">00</span>
+        <span class="countdown-label">MIN</span>
+      </div>
+      <div class="countdown-block">
+        <span class="countdown-number" id="cd-seconds">00</span>
+        <span class="countdown-label">SEG</span>
+      </div>
+    </div>
+    <div class="event-meta">
+      <p id="meta-data">📅 —</p>
+      <p id="meta-local">📍 —</p>
+      <a id="meta-maps" href="#" target="_blank" rel="noopener" class="maps-link">Abrir no mapa ↗</a>
+    </div>
+  </section>
+
+  <!-- Formulário / Quest log -->
+  <section class="quest-panel" id="quest-panel">
+    <p class="panel-title">🎮 CONFIRMAR PRESENÇA</p>
+
+    <form id="rsvp-form" novalidate>
+
+      <!-- Etapa 1: nome -->
+      <div class="field-group">
+        <label for="input-nome" class="field-label">
+          <span class="field-tag">01</span> Nome do jogador
+        </label>
+        <input type="text" id="input-nome" name="nome" class="field-input" placeholder="Digite seu nome" autocomplete="name" required />
+      </div>
+
+      <!-- Etapa 2: acompanhante -->
+      <div class="field-group">
+        <span class="field-label"><span class="field-tag">02</span> Vai trazer parceiro(s) de co-op?</span>
+        <div class="toggle-group" role="radiogroup" aria-label="Vai levar acompanhante?">
+          <button type="button" class="toggle-btn" data-value="nao" id="btn-sem-acompanhante" aria-pressed="true">NÃO, VOU SOLO</button>
+          <button type="button" class="toggle-btn" data-value="sim" id="btn-com-acompanhante" aria-pressed="false">SIM, EM SQUAD</button>
+        </div>
+      </div>
+
+      <!-- Etapa 3: detalhes do(s) acompanhante(s) (escondido por padrão) -->
+      <div class="field-group companion-block" id="companion-block" hidden>
+        <label for="input-qtd" class="field-label">
+          <span class="field-tag">03</span> Quantos acompanhantes?
+        </label>
+        <div class="stepper">
+          <button type="button" class="stepper-btn" id="btn-menos" aria-label="Diminuir">−</button>
+          <span class="stepper-value" id="qtd-value">1</span>
+          <button type="button" class="stepper-btn" id="btn-mais" aria-label="Aumentar">+</button>
+        </div>
+
+        <div class="companion-list" id="companion-list">
+          <!-- gerado via JS: 1 linha por acompanhante com select adulto/criança -->
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submit-btn">
+        <span>CONFIRMAR PRESENÇA</span>
+        <span class="submit-btn-arrow">▶</span>
+      </button>
+
+      <p class="form-error" id="form-error" hidden>⚠ Preencha seu nome para continuar.</p>
+    </form>
+
+    <!-- Tela de sucesso -->
+    <div class="success-panel" id="success-panel" hidden>
+      <p class="success-badge">✔ ACHIEVEMENT UNLOCKED</p>
+      <p class="success-title">Presença confirmada!</p>
+      <p class="success-text" id="success-text">Nos vemos na festa. Prepare seu controle!</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>PRESS START — <span id="footer-nome">—</span> // <span id="footer-nivel">LEVEL 10</span></p>
+  </footer>
+
+</div>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
